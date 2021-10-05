@@ -1,4 +1,7 @@
-﻿using OpenQA.Selenium;
+﻿using NUnit.Framework;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using September21.Pages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +12,27 @@ namespace September21.Utilities
 {
     class CommonDriver
     {
-        public static IWebDriver driver;
+        public IWebDriver driver;
+
+        [OneTimeSetUp]
+        public void LoginAction()
+        {
+
+            driver = new ChromeDriver();
+
+            // Login page object initialization and definition
+            LoginPage loginPageObj = new LoginPage();
+            loginPageObj.LoginAction(driver);
+        }
+
+
+        [OneTimeTearDown]
+        public void CloseTestRun() 
+
+        {
+            driver.Quit();
+        }
+
 
     }
 }

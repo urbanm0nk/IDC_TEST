@@ -25,7 +25,12 @@ namespace September21.Pages
             TM.Click();
             Thread.Sleep(1500);
 
-
         }
+
+            public void GoToEmployeePage(IWebDriver driver)
+            {
+                // navigate to employee page
+            }
+        
     }
 }

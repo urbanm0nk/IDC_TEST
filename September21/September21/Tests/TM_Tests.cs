@@ -9,6 +9,7 @@ using System.Threading;
 namespace September21
 {
     [TestFixture]
+    [Parallelizable]
     class TM_Tests : CommonDriver
     {
        
@@ -28,7 +29,7 @@ namespace September21
             HomePageeObj.GoToTMPage(driver);
         }
 
-        [Test]
+        [Test, Order(1), Description("Check if user is able to create Time record with valid data")]
         public void CreateTMTest()
         {
             // Create New Time and Material record initialization and def
@@ -36,7 +37,7 @@ namespace September21
             TMPageObj.CreateTM(driver);
         }
 
-        [Test]
+        [Test, Order(2), Description("Check if user is able to edit Time record with valid data")]
         public void EdithTMTest()
         {
             // Edit Record initialization and definition
@@ -44,7 +45,7 @@ namespace September21
             TMPageObj.EdithTM(driver);
         }
 
-        [Test]
+        [Test, Order(3), Description("Check if user is able to delete Material record")]
         public void DeleteTMTest()
         {
             // Delete record initialization and def
