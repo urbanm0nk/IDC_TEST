@@ -114,7 +114,7 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseUrl}}/api/v1/update/9853",
+					"raw": "{{baseUrl}}/api/v1/update/{{employeeID}}",
 					"host": [
 						"{{baseUrl}}"
 					],
@@ -122,7 +122,7 @@
 						"api",
 						"v1",
 						"update",
-						"9853"
+						"{{employeeID}}"
 					]
 				}
 			},
