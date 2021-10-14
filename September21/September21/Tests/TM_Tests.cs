@@ -42,7 +42,7 @@ namespace September21
         {
             // Edit Record initialization and definition
             TMPage TMPageObj = new TMPage();
-            TMPageObj.EdithTM(driver);
+            TMPageObj.EdithTM(driver, "dummy");
         }
 
         [Test, Order(3), Description("Check if user is able to delete Material record")]

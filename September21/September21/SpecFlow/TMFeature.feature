@@ -3,27 +3,40 @@
 	I will like to create, edith, delete the employee, time and material records
 	So I can successfully manage the employees time and material records
 
-@tmtest 
+@tmtest @regression
 Scenario: Create time and material with valid details
 	Given I login to turn up portal successfully
 	And I navigate to the time and material page
 	When I create time and material record
 	Then The record should be created successfully
 
-
-	Scenario: Edit time and material details
-	Given I navigate to the time and material record page
-	And I select a record by clicking on the edit button for the record 
-	When I edit the record and save
-	Then The record should be updated successfully
+#
+#	Scenario: Edit time and material details
+#	Given I login to turn up portal successfully
+#	And I navigate to the time and material page 
+#	When I edit the record and save
+#	Then The record should be updated successfully
 
 	Scenario: Delete time and material details
-	Given I navigate to the time and material record page
-	And I select a record by clicking on the delete button for the record 
-	When I confirm the deletion action on popup window
+	Given I login to turn up portal successfully
+	And I navigate to the time and material page 
+	When I delete a record
 	Then The record should be successfully deleted
 
-@Emptest
+	@tmtest @regression
+Scenario Outline: Edit time and material details
+	Given I login to turn up portal successfully
+	And I navigate to the time and material page
+	When I update '<Description>' on existing time and material record
+	Then The record should have '<Description>' updated successfully
+
+	Examples: 
+	| Description |
+	| Alpha    |
+	| Omega    |
+	| Romeo    |
+
+@Emptest @regression
 Scenario: Create employees with valid details
 	Given I login to turn up portal successfully
 	And I navigate to employee details page

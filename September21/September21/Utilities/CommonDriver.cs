@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace September21.Utilities
 {
-    class CommonDriver
+    public class CommonDriver
     {
         public IWebDriver driver;
 

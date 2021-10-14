@@ -1,0 +1,186 @@
+{
+	"info": {
+		"_postman_id": "1e517505-e167-417f-b7de-bff7e181789b",
+		"name": "Emp CRUD E2E Test1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create new record in database",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Assert 1 - Status Code Check\r",
+							"pm.test(\"Assert 1 - Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Assert 2 - Response Code Check\r",
+							"pm.test(\"Assert 2 - Check if the response contains the expected name\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"ubuntu\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Assert 3 - Check if the response contains the expected salary\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"456\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Assert 4 - Check if the key-value pairs in the response\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    // Check Name\r",
+							"    pm.expect(jsonData.data.name).to.eql(\"ubuntu\");\r",
+							"    // Check Salary\r",
+							"    pm.expect(jsonData.data.salary).to.eql(\"456\");\r",
+							"    // Check Age\r",
+							"    pm.expect(jsonData.data.age).to.eql(\"23\");\r",
+							"});\r",
+							"\r",
+							"// Set the employee ID as an environment variable\r",
+							"pm.test(\"Assert 4 -  Set the employee ID as an environment variable\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"\r",
+							"    pm.environment.set(\"employeeID\", jsonData.data.id);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"ubuntu\",\r\n    \"salary\": \"456\",\r\n    \"age\": \"23\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/v1/create",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update an employee record",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Assert 1 - Status Code Check\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Assert 2 - Response Code Check\r",
+							"pm.test(\"Response key-value pair check and validate if age is updated\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    // Check Name\r",
+							"    pm.expect(jsonData.data.name).to.eql(\"ubuntu\");\r",
+							"    // Check Salary\r",
+							"    pm.expect(jsonData.data.salary).to.eql(\"456\");\r",
+							"    // Check Age\r",
+							"    pm.expect(jsonData.data.age).to.eql(\"27\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"ubuntu\",\r\n    \"salary\": \"456\",\r\n    \"age\": \"27\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/v1/update/9853",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"update",
+						"9853"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete an employee record",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Assert 1 - Status Code Check\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Assert 2 - Response Code Check\r",
+							"pm.test(\"Check if delete the response key-value pair\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    // Check success output\r",
+							"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+							"    // Check data output and get the employee ID as an environment variable\r",
+							"    pm.expect(jsonData.data).to.not.eql(pm.environment.get(\"employeeID\"));\r",
+							"    // Check message output\r",
+							"    pm.expect(jsonData.message).to.eql(\"Successfully! Record has been deleted\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/v1/delete/{{employeeID}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"delete",
+						"{{employeeID}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
